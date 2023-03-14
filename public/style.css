@@ -1,0 +1,30 @@
+* {
+    border: 1px solid red;
+}
+
+header {
+    margin: 0 auto;
+    max-width: 900px;
+}
+
+.logo {
+    display: inline-block;
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+}
+.title {
+    display: flex;
+    margin: 0 auto;
+}
+
+.title h1 {
+    display: inline-block;
+    margin: auto 0;
+    justify-self: center;
+}
+
+.currentuser {
+    margin-top: auto;
+    margin-left: auto;
+}
