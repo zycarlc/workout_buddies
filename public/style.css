@@ -1,10 +1,46 @@
 * {
-    border: 1px solid red;
+    /* border: 1px solid red; */
+    box-sizing: border-box;
+}
+
+h1, a, p {
+    margin: 0;
+}
+
+nav {
+    margin-bottom: 20px;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333333;
+}
+  
+nav li {
+    float: left;
+    padding-left: 20px;
+}
+  
+nav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    text-decoration: none;
+    font-size: 20px;
+}
+  
+nav li a:hover {
+    background-color: #111111;
 }
 
 header {
     margin: 0 auto;
     max-width: 900px;
+    margin-bottom: 20px;
 }
 
 .logo {
@@ -28,3 +64,37 @@ header {
     margin-top: auto;
     margin-left: auto;
 }
+
+.posts_holder {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    gap: 8px;
+}
+.post {
+    position: relative;
+    text-align: center;
+    padding: 0;
+    /* height: 300px; */
+}
+
+.post img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+.post .text-box {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    background-color: rgba(0, 0, 244, 0.5);
+    color: white;
+    text-align: left;
+    padding-left: 20px;
+}
+
+
+@media (max-width: 600px) {
+    
+} 

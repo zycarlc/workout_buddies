@@ -1,7 +1,14 @@
 
 
 <div class="posts_holder">
-    <section class="post">
-        
-    </section>
+    <% posts.forEach(element => { %>
+        <section class="post">
+            <img src="<%=element.image_url%>" alt="">
+            <div class="text-box">
+                <h1><%=element.title%></h1>
+                <a href="<%= element.online_url %>">link</a>
+                <p class="time_passed"><%= element.timePassed %></p>
+            </div>
+        </section>
+    <% }); %>
 </div>
