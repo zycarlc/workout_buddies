@@ -4,11 +4,16 @@ CREATE TABLE posts (
     id SERIAL PRIMARY KEY,
     user_id INTEGER,
     title TEXT,
+    sport_type TEXT,
     image_url TEXT,
     online_url TEXT,
+    workout_description TEXT,
     likes INTEGER,
-    init_time TEXT,
-    edit_time TEXT
+    begin_datetime TIMESTAMP DEFAULT NULL,
+    end_datetime TIMESTAMP DEFAULT NULL,
+    init_second TEXT,
+    edit_second TEXT,
+    init_datetime TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE users (

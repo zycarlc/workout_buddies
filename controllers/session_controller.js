@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 const db = require("./../db");
 
 router.get('/login', (req, res) => {
-    res.render('login')
+    res.render('login', { message: '' })
 })
 
 router.post('/session', (req, res) => {
@@ -17,7 +17,7 @@ router.post('/session', (req, res) => {
         //did we get a record back?
         if (dbRes.rows.length === 0) {
             //no good, user doesnt exist in the users table. stay at the login page.
-            res.render("login")
+            res.render("login", { message: 'user not found' })
             return;
         }
         const users = dbRes.rows[0];
@@ -27,7 +27,7 @@ router.post('/session', (req, res) => {
                 req.session.userID = users.id
                 res.redirect('/')
             } else {
-                res.render("login")
+                res.render("login", { message: 'please check your password' })
             }
         })
     })

@@ -9,12 +9,14 @@ h1, a, p {
 
 nav {
     margin-bottom: 20px;
+    min-width: 600px;
 }
 
 nav ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
+    padding-left: 15%;
     overflow: hidden;
     background-color: #333333;
 }
@@ -67,12 +69,20 @@ header {
 
 .posts_holder {
     padding-left: 50px;
+    max-width: 1100px;
+    margin: 0 auto;
 } 
+
+.post-link {
+    text-decoration: none;
+    color: #244350;
+}
 
 .colomn {
     width: 230px;
     height: 100%;
     margin-left: 20px;
+    margin-bottom: 20px;
     float: left;
 }
 
@@ -80,6 +90,7 @@ header {
     display: block;
     position: relative;
     width: 100%;
+    margin-bottom: 20px;
 } 
 
 
@@ -100,3 +111,76 @@ header {
     padding-left: 20px;
 }
 
+.newpost {
+    width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+}
+
+.insert-table {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+}
+
+.insert-table label, .insert-table input, .insert-table div {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    display: block;
+    margin: 5px;
+    height: 30px;
+    font-size: 18px;
+}
+
+.insert-table label {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 16px;
+    font-weight: bold;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    min-width: 100px;
+}
+
+div.date, div.time {
+    display: flex;
+    float: left;
+}
+
+input.date, input.time {
+    display: inline-block;
+    width: 50px;
+    margin: 0;
+    padding: 0;
+}
+
+.insert-table .description {
+    height: 150px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    display: block;
+    margin: 5px;
+    font-size: 18px;
+}
+
+.newpost button {
+    position: absolute;
+    right: 20px;
+    background-color: #81cdf2;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    transition-duration: 0.4s;
+}
+
+.newpost button:hover{
+    background-color: #5da5c3; 
+    color: white;
+}
+
+.post-details {
+    width: 500px;
+    margin: 0 auto;
+}

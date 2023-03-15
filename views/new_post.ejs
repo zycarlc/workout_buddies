@@ -1,11 +1,43 @@
 <form class="newpost" action="/post" method="post">
-    <label for="">title</label>
-    <input type="text" name="title">
-    <label for="">image url</label>
-    <input type="text" name="imageUrl">
-    <label for="">zoom link</label>
-    <input type="text" name="onlineUrl">
-    <label for="">description</label>
-    <input type="text" name="description">
+    <div class="insert-table">
+        <label for="">title</label>
+        <input type="text" name="title">
+        <label for="">type</label>
+        <input list="browsers" name="sportType">
+        <datalist id="browsers">
+          <option value="Full Body">
+          <option value="Abs">
+          <option value="Arms">
+          <option value="Legs">
+          <option value="Back">
+          <option value="Shoulders">
+          <option value="Chest">
+          <option value="">
+        </datalist>
+        <label for="">date</label>
+        <div class="date">
+            <input class="date" type="number" name="date">/
+            <input class="date" type="number" name="month">/
+            <input class="date" type="number" name="year">
+        </div>
+        <label for="">time</label>
+        <div class="time">
+            <input class="time" type="number" name="hour">:
+            <input class="time" type="number" name="minutes">:
+            <input class="time" list="am/pm">
+            <datalist id="am/pm">
+                <option value="am">
+                <option value="pm">
+            </datalist>
+        </div>
+        <label for="">length (mins)</label>
+        <input type="number" name="last-time">
+        <label for="">image url</label>
+        <input type="text" name="imageUrl">
+        <label for="">zoom link</label>
+        <input type="text" name="onlineUrl">
+        <label for="">description</label>
+        <textarea class="description" type="text" name="description"></textarea>
+    </div>
     <button>post</button>
 </form>
