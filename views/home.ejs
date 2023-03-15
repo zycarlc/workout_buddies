@@ -1,14 +1,70 @@
-
+<script>
+    let colomn = 1;
+    var onresize = function(event) {
+        //note i need to pass the event as an argument to the function
+        width = event.target.outerWidth;
+        if (width > 1000) {
+            colomn = 5;
+        } else if (width > 800) {
+            colomn = 4;
+        } else if (width > 600) {
+            colomn = 3;
+        } else {
+            colomn = 2;
+        }
+        console.log(colomn)
+    }
+    window.addEventListener("resize", onresize);
+</script>
 
 <div class="posts_holder">
-    <% posts.forEach(element => { %>
-        <section class="post">
-            <img src="<%=element.image_url%>" alt="">
-            <div class="text-box">
-                <h1><%=element.title%></h1>
-                <a href="<%= element.online_url %>">link</a>
-                <p class="time_passed"><%= element.timePassed %></p>
+    <% let i = 0; %>        
+    <section class="colomn col1">
+        <% while (i < 2) { %>
+            <div class="post">
+                <img src="<%=posts[i].image_url%>" alt="">
+                <div class="text-box">
+                    <h1><%=posts[i].title%></h1>
+                    <a href="<%= posts[i].online_url %>">link</a>
+                    <p class="time_passed"><%= posts[i].timePassed %></p>
+                </div>
             </div>
-        </section>
-    <% }); %>
+        <% i++ } %>   
+    </section>
+    <section class="colomn col2">
+        <% while (i < 4) { %>
+            <div class="post">
+                <img src="<%=posts[i].image_url%>" alt="">
+                <div class="text-box">
+                    <h1><%=posts[i].title%></h1>
+                    <a href="<%= posts[i].online_url %>">link</a>
+                    <p class="time_passed"><%= posts[i].timePassed %></p>
+                </div>
+            </div>
+        <% i++} %> 
+    </section>
+    <section class="colomn col3">
+        <% while (i < 6) { %>
+            <div class="post">
+                <img src="<%=posts[i].image_url%>" alt="">
+                <div class="text-box">
+                    <h1><%=posts[i].title%></h1>
+                    <a href="<%= posts[i].online_url %>">link</a>
+                    <p class="time_passed"><%= posts[i].timePassed %></p>
+                </div>
+            </div>
+        <% i++} %> 
+    </section>
+    <section class="colomn col4">
+        <% while (i < 8) { %>
+            <div class="post">
+                <img src="<%=posts[i].image_url%>" alt="">
+                <div class="text-box">
+                    <h1><%=posts[i].title%></h1>
+                    <a href="<%= posts[i].online_url %>">link</a>
+                    <p class="time_passed"><%= posts[i].timePassed %></p>
+                </div>
+            </div>
+        <% i++} %> 
+    </section>
 </div>

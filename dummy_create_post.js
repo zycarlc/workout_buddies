@@ -1,6 +1,6 @@
 const db = require('./db');
 
-let array = ['lifting', 'yoga', 'workout', 'squat', 'dancing', 'plank']
+let array = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
 let now = new Date();
 console.log(now.getTime())
 array.forEach(element => {

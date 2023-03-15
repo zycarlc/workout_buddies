@@ -66,27 +66,33 @@ header {
 }
 
 .posts_holder {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    gap: 8px;
+    padding-left: 50px;
+} 
+
+.colomn {
+    width: 230px;
+    height: 100%;
+    margin-left: 20px;
+    float: left;
 }
+
 .post {
+    display: block;
     position: relative;
-    text-align: center;
-    padding: 0;
-    /* height: 300px; */
-}
+    width: 100%;
+} 
+
 
 .post img {
     object-fit: cover;
     width: 100%;
     height: 100%;
-    margin: 0;
+    /* margin: 0; */
 }
 
 .post .text-box {
     position: absolute;
-    bottom: 0px;
+    bottom: 4px;
     width: 100%;
     background-color: rgba(0, 0, 244, 0.5);
     color: white;
@@ -94,7 +100,3 @@ header {
     padding-left: 20px;
 }
 
-
-@media (max-width: 600px) {
-    
-} 

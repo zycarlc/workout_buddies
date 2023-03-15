@@ -1,9 +1,10 @@
+const { render } = require('ejs');
 const express = require('express');
 const db = require('./../db');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    const sql = "SELECT * FROM posts ORDER BY init_time DESC;"
+    const sql = "SELECT * FROM posts ORDER BY title ASC;"
     db.query(sql, (err, dbRes) => {
         let posts = dbRes.rows;
         let now = new Date()
@@ -26,6 +27,14 @@ router.get('/', (req, res) => {
         
         res.render('home', { posts, })
     })
+})
+
+router.get('/post/new', (req, res) => {
+    res.render('new_post.ejs')
+})
+
+router.post('/post', (req, res) => {
+    
 })
 
 module.exports = router;
