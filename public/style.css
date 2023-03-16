@@ -75,7 +75,7 @@ header {
 
 .post-link {
     text-decoration: none;
-    color: #244350;
+    color: #ccf0ff;
 }
 
 .colomn {
@@ -110,7 +110,10 @@ header {
     text-align: left;
     padding-left: 20px;
 }
-
+.post a {
+    text-decoration: underline;
+    color: #ccf0ff;
+}
 .newpost {
     width: 600px;
     margin: 0 auto;

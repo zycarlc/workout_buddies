@@ -11,8 +11,6 @@ CREATE TABLE posts (
     likes INTEGER,
     begin_datetime TIMESTAMP DEFAULT NULL,
     end_datetime TIMESTAMP DEFAULT NULL,
-    init_second TEXT,
-    edit_second TEXT,
     init_datetime TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

@@ -10,6 +10,8 @@ const sessionController = require('./controllers/session_controller')
 const viewHelpers = require('./middlewares/viewHelpers')
 const currentUser = require('./middlewares/current_user')
 const methodOverride = require('./middlewares/method_override')
+const upload = require('./middlewares/upload')
+
 app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride)
 app.set('view engine', 'ejs')
@@ -29,8 +31,14 @@ app.use(expressLayouts)
 app.use(currentUser)
 app.use(viewHelpers)
 
+app.get('/upload', (req, res) => {
+    res.render('form')
+})
 
-
+app.post('/upload', upload.single('uploadedfile'), (req, res) => {
+    console.log(req.file.path)
+    res.redirect('/upload')
+})
 
 app.use("/", postController)
 app.use("/", sessionController)

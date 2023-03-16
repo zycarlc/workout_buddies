@@ -24,14 +24,14 @@
         <div class="time">
             <input class="time" type="number" name="hour">:
             <input class="time" type="number" name="minutes">:
-            <input class="time" list="am/pm">
+            <input class="time" list="am/pm" name="ap">
             <datalist id="am/pm">
                 <option value="am">
                 <option value="pm">
             </datalist>
         </div>
         <label for="">length (mins)</label>
-        <input type="number" name="last-time">
+        <input type="number" name="lastTime">
         <label for="">image url</label>
         <input type="text" name="imageUrl">
         <label for="">zoom link</label>
@@ -41,3 +41,5 @@
     </div>
     <button>post</button>
 </form>
+
+<p><%= message %></p>
