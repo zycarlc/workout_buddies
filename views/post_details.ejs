@@ -5,10 +5,13 @@
     </h1>
     <div class="post">
         <img src="<%=postDetails.image_url%>" alt="">
-        <div class="text-box">
+        <div class="detail-text-box">
             <h1><%=postDetails.sport_type%></h1>
             <a href="<%= postDetails.online_url %>">Join link</a>
-            <p class="time_passed"><%= postDetails.inTime %></p>
+            <div class="time-string">
+                <p class="date_time"><%= postDetails.startDateTime %></p>
+                <p class="time_passed"><%= postDetails.inTime %></p>
+            </div>
             <p class="description"><%= postDetails.workout_description %></p>
         </div>
 

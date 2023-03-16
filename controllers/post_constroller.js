@@ -5,30 +5,32 @@ const router = express.Router();
 const moment = require('moment');
 
 router.get('/', (req, res) => {
-    let now = moment().format()
     const sql = `SELECT * FROM posts WHERE end_datetime >= Now() ORDER BY begin_datetime ASC;`
     db.query(sql, (err, dbRes) => {
         let posts = dbRes.rows;
-        dbRes.rows.forEach(post => {
+        posts.forEach(post => {
             let scheduleTime = post.begin_datetime
             let endTime = post.end_datetime
             let inTime = moment(scheduleTime, 'YYYY-MM-DD hh:mm:ss').fromNow();
             let endIn = moment(endTime, 'YYYY-MM-DD hh:mm:ss').fromNow();
+            let startDateTime = moment(scheduleTime, 'YYYY-MM-DD hh:mm:ss').format(' h:mm a, DD/MM/YYYY')
+            post.startDateTime = startDateTime;
             if (inTime.includes('ago')) {
                 post.inTime = `In progress. Ends ${endIn}`
             } else {
                 post.inTime = inTime
             }
         })
+        // res.json(posts)
         res.render('home', { posts, })
     })
 })
 
 router.get('/post/new', (req, res) => {
-    // if (!req.session.userID) {
-    //     res.render('login', {message: 'please login first'})
-    //     return
-    // }
+    if (!req.session.userID) {
+        res.render('login', {message: 'please login first'})
+        return
+    }
     res.render('new_post', { message: '' })
 })
 
@@ -67,7 +69,9 @@ router.get('/history', (req, res) => {
             let endTime = post.end_datetime
             let inTime = moment(scheduleTime, 'YYYY-MM-DD hh:mm:ss').fromNow();
             let endIn = moment(endTime, 'YYYY-MM-DD hh:mm:ss').fromNow();
-            post.inTime = inTime
+            post.inTime = inTime;
+            let startDateTime = moment(scheduleTime, 'YYYY-MM-DD hh:mm:ss').format('DD/MM/YYYY')
+            post.startDateTime = startDateTime;
         })
         res.render('history', { posts, })
     })
@@ -81,11 +85,9 @@ router.get('/post/:id', (req, res) => {
         let endTime = postDetails.end_datetime
         let inTime = moment(scheduleTime, 'YYYY-MM-DD hh:mm:ss').fromNow();
         let endIn = moment(endTime, 'YYYY-MM-DD hh:mm:ss').fromNow();
-        if (inTime.includes('ago')) {
-            postDetails.inTime = `In progress. Ends ${endIn}`
-        } else {
-            postDetails.inTime = inTime
-        }
+        let startDateTime = moment(scheduleTime, 'YYYY-MM-DD hh:mm:ss').format(' h:mm a, DD/MM/YYYY')
+        postDetails.inTime = inTime
+        postDetails.startDateTime = startDateTime
         res.render('post_details', { postDetails })
     })
 })

@@ -1,61 +1,20 @@
-<div class="posts_holder">
+<div class="posts_holder grid" >
     <h1>
         Upcoming
     </h1>
-    <section class="colomn col1">
-        <%  let i = 0; while (i < posts.length) { %>
+    <%  let i = 0; while (i < posts.length) { %>
+        <div class="grid-item">
             <a class="post-link" href="/post/<%= posts[i].id %>">
                 <div class="post">
                     <img src="<%=posts[i].image_url%>" alt="">
                     <div class="text-box">
                         <h1><%=posts[i].title%></h1>
                         <a href="<%= posts[i].online_url %>">Join link</a>
+                        <p class="date_time"><%= posts[i].startDateTime %></p>
                         <p class="time_passed"><%= posts[i].inTime %></p>
                     </div>
                 </div>
             </a>
-        <% i += 4 } %>   
-    </section>
-    <section class="colomn col2">
-        <% i = 1; while (i < posts.length) { %>
-            <a class="post-link" href="/post/<%= posts[i].id %>">
-                <div class="post">
-                    <img src="<%=posts[i].image_url%>" alt="">
-                    <div class="text-box">
-                        <h1><%=posts[i].title%></h1>
-                        <a href="<%= posts[i].online_url %>">Join link</a>
-                        <p class="time_passed"><%= posts[i].inTime %></p>
-                    </div>
-                </div>
-            </a>
-        <% i += 4 } %> 
-    </section>
-    <section class="colomn col3">
-        <% i = 2; while (i < posts.length) { %>
-            <a class="post-link" href="/post/<%= posts[i].id %>">
-                <div class="post">
-                    <img src="<%=posts[i].image_url%>" alt="">
-                    <div class="text-box">
-                        <h1><%=posts[i].title%></h1>
-                        <a href="<%= posts[i].online_url %>">Join link</a>
-                        <p class="time_passed"><%= posts[i].inTime %></p>
-                    </div>
-                </div>
-            </a>
-        <% i += 4 } %> 
-    </section>
-    <section class="colomn col4">
-        <% i = 3; while (i < posts.length) { %>
-            <a class="post-link" href="/post/<%= posts[i].id %>">
-                <div class="post">
-                    <img src="<%=posts[i].image_url%>" alt="">
-                    <div class="text-box">
-                        <h1><%=posts[i].title%></h1>
-                        <a href="<%= posts[i].online_url %>">Join link</a>
-                        <p class="time_passed"><%= posts[i].inTime %></p>
-                    </div>
-                </div>
-            </a>
-        <% i += 4 } %> 
-    </section>
+        </div>
+    <% i ++ } %>   
 </div>
