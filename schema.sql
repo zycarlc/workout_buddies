@@ -21,3 +21,6 @@ CREATE TABLE users (
     email TEXT,
     password_encrypted TEXT
 );
+
+INSERT INTO users (username, password_encrypted) VALUES ('admin', '$2b$10$tDy.toInXqwwANfDAjCecuxe2aTjehALYC0HQ9IP9xNPXFzLGUcuW');
+
