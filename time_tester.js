@@ -42,7 +42,7 @@ let scheduleDateString = "2023-03-16T10:50:00";
 
 // console.log(dateTime(now))
 
-console.log(moment(scheduleDateString).add(30, 'minutes').toString())
+console.log(moment(scheduleDateString).add(-30, 'minutes'))
 
 console.log(moment('2023-03-16 15:50:00', 'YYYY-MM-DD hh:mm:ss').fromNow());
 
