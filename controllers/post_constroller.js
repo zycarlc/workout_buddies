@@ -11,13 +11,13 @@ router.get('/', (req, res) => {
         db.query(sql, (err, dbRes) => {
             let posts = dbRes.rows;
             posts.forEach(post => {
-                // let scheduleTime = post.begin_datetime
-                // let endTime = post.end_datetime
+                let scheduleTimeText = post.begin_datetime
+                let endTimeText = post.end_datetime
                 let scheduleTime = moment(post.begin_datetime, 'YYYY-MM-DD hh:mm:ss').add(-11, 'hours')
                 let endTime = moment(post.end_datetime, 'YYYY-MM-DD hh:mm:ss').add(-11, 'hours')
                 let inTime = scheduleTime.fromNow();
                 let endIn = endTime.fromNow();
-                let startDateTime = moment(scheduleTime, 'YYYY-MM-DD hh:mm:ss').format(' h:mm a, DD/MM/YYYY')
+                let startDateTime = moment(scheduleTimeText, 'YYYY-MM-DD hh:mm:ss').format(' h:mm a, DD/MM/YYYY')
                 post.startDateTime = startDateTime;
                 if (inTime.includes('ago')) {
                     post.inTime = `In progress. Ends ${endIn}`
@@ -71,14 +71,14 @@ router.get('/history', (req, res) => {
             db.query(sql, (err, dbRes) => {
                 let posts = dbRes.rows;
                 dbRes.rows.forEach(post => {
-                    // let scheduleTime = post.begin_datetime
+                    let scheduleTimeText = post.begin_datetime
                     // let endTime = post.end_datetime
                     let scheduleTime = moment(post.begin_datetime, 'YYYY-MM-DD hh:mm:ss').add(-11, 'hours')
                     let endTime = moment(post.end_datetime, 'YYYY-MM-DD hh:mm:ss').add(-11, 'hours')
                     let inTime = moment(scheduleTime, 'YYYY-MM-DD hh:mm:ss').fromNow();
                     let endIn = moment(endTime, 'YYYY-MM-DD hh:mm:ss').fromNow();
                     post.inTime = inTime;
-                    let startDateTime = moment(scheduleTime, 'YYYY-MM-DD hh:mm:ss').format('DD/MM/YYYY')
+                    let startDateTime = moment(scheduleTimeText, 'YYYY-MM-DD hh:mm:ss').format('DD/MM/YYYY')
                     post.startDateTime = startDateTime;
                 })
                 res.render('history', { posts, })
@@ -92,13 +92,13 @@ router.get('/post/:id', (req, res) => {
     db.query(setTimezoneSql, (err, dbRes) => {
         db.query(sql, [req.params.id], (err, dbRes) => {
             let postDetails = dbRes.rows[0];
-            // let scheduleTime = postDetails.begin_datetime
+            let scheduleTimeText = postDetails.begin_datetime
             // let endTime = postDetails.end_datetime
             let scheduleTime = moment(postDetails.begin_datetime, 'YYYY-MM-DD hh:mm:ss').add(-11, 'hours')
             let endTime = moment(postDetails.end_datetime, 'YYYY-MM-DD hh:mm:ss').add(-11, 'hours')
             let inTime = moment(scheduleTime, 'YYYY-MM-DD hh:mm:ss').fromNow();
             let endIn = moment(endTime, 'YYYY-MM-DD hh:mm:ss').fromNow();
-            let startDateTime = moment(scheduleTime, 'YYYY-MM-DD hh:mm:ss').format(' h:mm a, DD/MM/YYYY')
+            let startDateTime = moment(scheduleTimeText, 'YYYY-MM-DD hh:mm:ss').format(' h:mm a, DD/MM/YYYY')
             if (inTime.includes('ago') && endIn.includes('ago')) {
                 postDetails.inTime = `Ended ${endIn}`
             } else if (inTime.includes('ago') && endIn.includes('in')) {
