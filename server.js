@@ -9,6 +9,7 @@ const db = require('./db')
 
 const postController = require('./controllers/post_constroller')
 const sessionController = require('./controllers/session_controller')
+const userController = require('./controllers/user_controller')
 const viewHelpers = require('./middlewares/viewHelpers')
 const currentUser = require('./middlewares/current_user')
 const methodOverride = require('./middlewares/method_override')
@@ -44,6 +45,7 @@ app.post('/upload', upload.single('uploadedfile'), (req, res) => {
 
 app.use("/", postController)
 app.use("/", sessionController)
+app.use("/", userController)
 
 
 app.get('/', (req, res) => {

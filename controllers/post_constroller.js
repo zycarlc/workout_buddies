@@ -5,24 +5,27 @@ const router = express.Router();
 const moment = require('moment');
 
 router.get('/', (req, res) => {
-    const sql = `SELECT * FROM posts WHERE end_datetime >= Now() ORDER BY begin_datetime ASC;`
-    db.query(sql, (err, dbRes) => {
-        let posts = dbRes.rows;
-        posts.forEach(post => {
-            let scheduleTime = post.begin_datetime
-            let endTime = post.end_datetime
-            let inTime = moment(scheduleTime, 'YYYY-MM-DD hh:mm:ss').fromNow();
-            let endIn = moment(endTime, 'YYYY-MM-DD hh:mm:ss').fromNow();
-            let startDateTime = moment(scheduleTime, 'YYYY-MM-DD hh:mm:ss').format(' h:mm a, DD/MM/YYYY')
-            post.startDateTime = startDateTime;
-            if (inTime.includes('ago')) {
-                post.inTime = `In progress. Ends ${endIn}`
-            } else {
-                post.inTime = inTime
-            }
+    const setTimezoneSql = "SET timezone = 'Australia/Melbourne'"
+    db.query(setTimezoneSql, (err, dbRes) => {
+        const sql = `SELECT * FROM posts WHERE end_datetime >= Now() ORDER BY begin_datetime ASC;`
+        db.query(sql, (err, dbRes) => {
+            let posts = dbRes.rows;
+            posts.forEach(post => {
+                let scheduleTime = post.begin_datetime
+                let endTime = post.end_datetime
+                let inTime = moment(scheduleTime, 'YYYY-MM-DD hh:mm:ss').fromNow();
+                let endIn = moment(endTime, 'YYYY-MM-DD hh:mm:ss').fromNow();
+                let startDateTime = moment(scheduleTime, 'YYYY-MM-DD hh:mm:ss').format(' h:mm a, DD/MM/YYYY')
+                post.startDateTime = startDateTime;
+                if (inTime.includes('ago')) {
+                    post.inTime = `In progress. Ends ${endIn}`
+                } else {
+                    post.inTime = inTime
+                }
+            })
+            // res.json(posts)
+            res.render('home', { posts, })
         })
-        // res.json(posts)
-        res.render('home', { posts, })
     })
 })
 
@@ -43,7 +46,7 @@ router.post('/post', (req, res) => {
     let postContent = req.body;
     let {title, sportType, date, month, year, hour, minutes, ap, lastTime, imageUrl, onlineUrl, description } = postContent;
     let scheduleTimeString = `${year + month + date} ${hour}:${minutes}:00 ${ap.slice(0, 1)}`
-    let beginTimeStamp = moment(scheduleTimeString, 'YYYYMMDD hh:mm:ss a')
+    let beginTimeStamp = moment(scheduleTimeString + "+11:00", "YYYYMMDD hh:mm:ss a")
     let scheduleTime = beginTimeStamp.format();
     let finishTime = beginTimeStamp.add(Number(lastTime), 'minutes').format();
     let now = moment().format();
@@ -60,35 +63,46 @@ router.post('/post', (req, res) => {
 })
 
 router.get('/history', (req, res) => {
-    let now = moment().format()
+    const setTimezoneSql = "SET timezone = 'Australia/Melbourne'"
     const sql = `SELECT * FROM posts WHERE end_datetime <= Now() ORDER BY end_datetime DESC;`
-    db.query(sql, (err, dbRes) => {
-        let posts = dbRes.rows;
-        dbRes.rows.forEach(post => {
-            let scheduleTime = post.begin_datetime
-            let endTime = post.end_datetime
-            let inTime = moment(scheduleTime, 'YYYY-MM-DD hh:mm:ss').fromNow();
-            let endIn = moment(endTime, 'YYYY-MM-DD hh:mm:ss').fromNow();
-            post.inTime = inTime;
-            let startDateTime = moment(scheduleTime, 'YYYY-MM-DD hh:mm:ss').format('DD/MM/YYYY')
-            post.startDateTime = startDateTime;
-        })
-        res.render('history', { posts, })
+    db.query(setTimezoneSql, (err, dbRes) => {
+            db.query(sql, (err, dbRes) => {
+                let posts = dbRes.rows;
+                dbRes.rows.forEach(post => {
+                    let scheduleTime = post.begin_datetime
+                    let endTime = post.end_datetime
+                    let inTime = moment(scheduleTime, 'YYYY-MM-DD hh:mm:ss').fromNow();
+                    let endIn = moment(endTime, 'YYYY-MM-DD hh:mm:ss').fromNow();
+                    post.inTime = inTime;
+                    let startDateTime = moment(scheduleTime, 'YYYY-MM-DD hh:mm:ss').format('DD/MM/YYYY')
+                    post.startDateTime = startDateTime;
+                })
+                res.render('history', { posts, })
+            })
     })
 })
 
 router.get('/post/:id', (req, res) => {
+    const setTimezoneSql = "SET timezone = 'Australia/Melbourne'"
     const sql = `SELECT * FROM posts WHERE id = $1;`
-    db.query(sql, [req.params.id], (err, dbRes) => {
-        let postDetails = dbRes.rows[0];
-        let scheduleTime = postDetails.begin_datetime
-        let endTime = postDetails.end_datetime
-        let inTime = moment(scheduleTime, 'YYYY-MM-DD hh:mm:ss').fromNow();
-        let endIn = moment(endTime, 'YYYY-MM-DD hh:mm:ss').fromNow();
-        let startDateTime = moment(scheduleTime, 'YYYY-MM-DD hh:mm:ss').format(' h:mm a, DD/MM/YYYY')
-        postDetails.inTime = inTime
-        postDetails.startDateTime = startDateTime
-        res.render('post_details', { postDetails })
+    db.query(setTimezoneSql, (err, dbRes) => {
+        db.query(sql, [req.params.id], (err, dbRes) => {
+            let postDetails = dbRes.rows[0];
+            let scheduleTime = postDetails.begin_datetime
+            let endTime = postDetails.end_datetime
+            let inTime = moment(scheduleTime, 'YYYY-MM-DD hh:mm:ss').fromNow();
+            let endIn = moment(endTime, 'YYYY-MM-DD hh:mm:ss').fromNow();
+            let startDateTime = moment(scheduleTime, 'YYYY-MM-DD hh:mm:ss').format(' h:mm a, DD/MM/YYYY')
+            if (inTime.includes('ago') && endIn.includes('ago')) {
+                postDetails.inTime = `Ended ${endIn}`
+            } else if (inTime.includes('ago') && endIn.includes('in')) {
+                postDetails.inTime = `In Progress, Ends ${endIn}`
+            } else {
+                postDetails.inTime = inTime;
+            }
+            postDetails.startDateTime = startDateTime
+            res.render('post_details', { postDetails })
+        })
     })
 })
 
